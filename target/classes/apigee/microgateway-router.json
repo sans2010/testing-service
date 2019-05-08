@@ -1,4 +1,4 @@
 {
-    "name": "edgemicro_domain_resource_proxyname_version",
-    "value": "https://mocktarget.apigee.net"
+    "name": "edgemicro_member_devops_demo_v1",
+    "value": "https://testing-bcbs-app.cfapps.io"
 }
