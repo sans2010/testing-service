@@ -1,0 +1,13 @@
+---
+server:
+  port: 8080
+
+logging:
+  level:
+    com.bcbsma.api: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %X{X-API-UUID} [%-6p] %c{1} � %m%n"
+
+spring: 
+   main :
+      allow-bean-definition-overriding : true   

@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "dev"
+        },
+        {
+            "name": "test" 
+        },
+        {
+            "name": "stage" 
+        },
+        {
+            "name": "prod" 
+        }
+    ]
+}

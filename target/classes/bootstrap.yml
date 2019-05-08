@@ -1,0 +1,11 @@
+---
+spring:
+  application:
+    name: testing-service
+    
+
+
+management:
+  security:
+    enabled: false
+    

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: testing-service
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: sgupta21
+Implementation-Vendor-Id: com.bcbsma.api
+Build-Jdk: 1.8.0_161
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/api-parent/testing-service
+Created-By: Maven Integration for Eclipse
+

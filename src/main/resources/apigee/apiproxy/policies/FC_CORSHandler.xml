@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout async="false" continueOnError="false" enabled="true" name="FC_CORSHandler">
+    <DisplayName>FC_CORSHandler</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <SharedFlowBundle>Member_MyBlue_CORSHandler_V1</SharedFlowBundle>
+</FlowCallout>

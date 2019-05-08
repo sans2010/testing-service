@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.bcbsma.api</groupId>
+		<artifactId>api-parent</artifactId>
+		<version>(,0.1.4)</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>testing-service</artifactId>
+	<name>testing-service</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- Project dependencies -->
+		<dependency>
+			<groupId>com.bcbsma.api</groupId>
+			<artifactId>api-core</artifactId>
+			<version>(,0.0.11)</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>com.bcbsma.api</groupId>
+			<artifactId>api-rabbitmq</artifactId>
+			<version>(,0.0.2)</version>
+		</dependency> -->
+	</dependencies>
+
+	<!-- copy .openapi-generator-ignore to desired target folder -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/generated-sources/openapi</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/src/main/resources/openapi</directory>
+									<includes>
+										<include>.openapi-generator-ignore</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<profiles>
+		<profile>
+			<id>gen-openapi</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.openapitools</groupId>
+						<artifactId>openapi-generator-maven-plugin</artifactId>
+						<version>3.3.4</version>
+						<executions>
+							<execution>
+								<id>generate-all</id>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<!-- update inputSpec value to match open api file name -->
+									<inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+									<validateSpec>true</validateSpec>
+									<generatorName>spring</generatorName>
+									<apiPackage>${project.groupId}.${project.artifactId}.handler</apiPackage>
+									<modelPackage>${project.groupId}.${project.artifactId}.model</modelPackage>
+									<invokerPackage>${project.groupId}.${project.artifactId}.handler</invokerPackage>
+									<generateApiDocumentation>true</generateApiDocumentation>
+									<configOptions>
+									</configOptions>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>gen-openapi-model</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.openapitools</groupId>
+						<artifactId>openapi-generator-maven-plugin</artifactId>
+						<version>3.3.4</version>
+						<executions>
+							<execution>
+								<!-- provide a unique name if there are multiple generate-model executions -->
+								<id>generate-model</id>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<!-- update inputSpec value to macth open api file name -->
+									<inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+									<validateSpec>true</validateSpec>
+									<generatorName>spring</generatorName>
+									<generateApis>false</generateApis>
+									<generateApiTests>false</generateApiTests>
+									<generateModelDocumentation>false</generateModelDocumentation>
+									<generateApiDocumentation>false</generateApiDocumentation>
+									<generateSupportingFiles>false</generateSupportingFiles>
+									<modelPackage>${project.groupId}.${project.artifactId}.model</modelPackage>
+									<configOptions>
+										<!-- <sourceFolder>src/gen/main/java</sourceFolder> -->
+									</configOptions>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>apigee-proxy</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.bcbsma.enterprise.api.utils</groupId>
+						<artifactId>apigee-autoproxy-maven-plugin</artifactId>
+						<version>1.0.0</version>
+						<executions>
+							<execution>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>buildproxy</goal>
+								</goals>
+								<configuration>
+									<baseDirectory>${project.basedir}</baseDirectory>
+									<buildDirectory>${project.basedir}/src/main/resources/apigee</buildDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+			<properties>
+				<type>${type}</type>
+				<username>${username}</username>
+				<password>${password}</password>
+				<revision>${revision}</revision>
+			</properties>
+		</profile>
+	</profiles>
+</project>
