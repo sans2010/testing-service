@@ -131,7 +131,7 @@
 			</build>
 		</profile>
 		
-		<profile>
+		<!-- <profile>
 			<id>apigee-proxy</id>
 			<build>
 				<plugins>
@@ -160,6 +160,6 @@
 				<password>${password}</password>
 				<revision>${revision}</revision>
 			</properties>
-		</profile>
+		</profile> -->
 	</profiles>
 </project>

@@ -26,7 +26,7 @@
         </Flow>
     </Flows>
     <HTTPProxyConnection>
-        <BasePath>/member/devops/v1/demo</BasePath>
+        <BasePath>/domain/resource/v1/apiname</BasePath>
         <Properties/>
         <VirtualHost>secure</VirtualHost>
     </HTTPProxyConnection>

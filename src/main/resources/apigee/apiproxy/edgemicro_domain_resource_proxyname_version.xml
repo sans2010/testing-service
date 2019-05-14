@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <APIProxy revision="1" name="edgemicro_domain_resource_proxyname_version">
-    <Basepaths>/member/devops/v1/demo</Basepaths>
+    <Basepaths>/domain/resource/v1/apiname</Basepaths>
     <ConfigurationVersion majorVersion="4" minorVersion="0"/>
     <CreatedAt>1557157594452</CreatedAt>
     <CreatedBy>sandesh.gawali@perficient.com</CreatedBy>

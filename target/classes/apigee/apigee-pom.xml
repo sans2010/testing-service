@@ -3,11 +3,11 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>bcbsma</groupId>
-    <artifactId>edgemicro_member_devops_demo_v1</artifactId>
+    <artifactId>edgemicro_domain_resource_proxyname_version</artifactId>
     <version>v1</version>
-    <name>edgemicro_member_devops_demo_v1</name>
+    <name>edgemicro_domain_resource_proxyname_version</name>
     <packaging>pom</packaging>
-    <pluginRepositories>
+ <pluginRepositories>
         <pluginRepository>
             <id>central</id>
             <name>Maven Plugin Repository</name>
@@ -24,14 +24,14 @@
     <properties>
             <main.basedir>${project.basedir}</main.basedir>
     </properties>
-
+ 
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.5</version>
             </plugin>
-
+ 
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
@@ -79,7 +79,7 @@
         </plugins>
     </build>
 <!-- This is where you add the environment specific properties under various profile names -->
- <profiles>
+<profiles>
         <profile>
             <id>dev</id>
             <properties>
