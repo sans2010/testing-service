@@ -1,9 +1,9 @@
 
 applications: 
-  - name: testing-bcbs-app
+  - name: testing-service
     memory: 768M
-    path: target/testing-service-0.0.1-SNAPSHOT.jar
+    path: target/testing-service-0.0.2-SNAPSHOT.jar
     routes:
       - route: testing-bcbs-app.cfapps.io
     env:
-      APP_VERSION: 0.0.1-SNAPSHOT
+      APP_VERSION: 0.0.2-SNAPSHOT

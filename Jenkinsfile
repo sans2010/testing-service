@@ -14,7 +14,8 @@ pipeline {
 	parameters {
 		choice(choices:'deploy-to-dev\ndeploy-proxy-dev\ndeploy-kvm-dev\ndeploy-to-test',description:'Which Env',name:'ENV_DEPLOY')
 		string(name:'ARTIFACT_VERSION',defaultValue:'',description:'Enter Artifact version from Artifactory.')
-		string(name:'PROJECT_NAME',defaultValue:'',description:'Enter git repo name to build.')
+		string(name:'ARTIFACT_ID',defaultValue:'',description:'Enter ARTIFACT ID (same as repo name) to build.')
+		string(name:'GROUP_ID',defaultValue:'',description:'Enter GROUP ID to build.')
 	}
 	
     stages {
@@ -141,8 +142,11 @@ pipeline {
 					echo params.RELEASE_VERSION
 					withCredentials([usernamePassword(credentialsId: 'pcf-cre', passwordVariable: 'SECREAT_PCF_PASSWORD', usernameVariable: 'SECREAT_PCF_USER')]) {
 						//bat "cf login -a https://api.run.pivotal.io"
+						def artifactory_server = Artifactory.server "Artifactory"
 						bat 'cf login -a https://api.run.pivotal.io -u '+SECREAT_PCF_USER+' -p '+SECREAT_PCF_PASSWORD+' -o "Northeast / Canada" -s "bcbsma"'
-						bat "cf env bcbs-student-app > temp.txt"
+						bat "cf env "+ARTIFACT_ID+" > temp.txt"
+						bat "${mvnHome}/bin/mvn clean package -P artifact-download -DgroupId="+GROUP_ID+" -DartifactId="+ARTIFACT_ID+" -Dversion="+ARTIFACT_VERSION+" "
+						bat "cf push "+ARTIFACT_ID+" -p artifactdownload/"+ARTIFACT_ID+"-"+ARTIFACT_VERSION+".jar"
 					}	
 				}
             }
