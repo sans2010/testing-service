@@ -138,6 +138,7 @@ pipeline {
             steps {
                 echo 'Deploying app...'
 				script {
+					mvnHome = tool 'maven'
 					//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'
 					echo params.RELEASE_VERSION
 					withCredentials([usernamePassword(credentialsId: 'pcf-cre', passwordVariable: 'SECREAT_PCF_PASSWORD', usernameVariable: 'SECREAT_PCF_USER')]) {
