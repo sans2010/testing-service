@@ -151,7 +151,7 @@ pipeline {
 						bat 'cf login -a https://api.run.pivotal.io -u '+SECREAT_PCF_USER+' -p '+SECREAT_PCF_PASSWORD+' -o "Northeast / Canada" -s "bcbsma"'
 						bat "cf env "+ARTIFACT_ID+" > temp.txt"
 						bat "${mvnHome}/bin/mvn clean package -P artifact-download -DgroupId="+GROUP_ID+" -DartifactId="+ARTIFACT_ID+" -Dversion="+ARTIFACT_VERSION+" "
-						bat "cf push "+ARTIFACT_ID+" --no-manifest env APP_VERSION="+ARTIFACT_VERSION+" -p artifactdownload/"+ARTIFACT_ID+"-"+ARTIFACT_VERSION+".jar"
+						bat "cf push "+ARTIFACT_ID+" --no-manifest set-env APP_VERSION "+ARTIFACT_VERSION+" -p artifactdownload/"+ARTIFACT_ID+"-"+ARTIFACT_VERSION+".jar"
 					}	
 				}
             }
