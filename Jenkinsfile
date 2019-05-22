@@ -45,6 +45,10 @@ pipeline {
 					if(currentBuild.rawBuild.previousBuild != null) {
 						prvBuildDispName = currentBuild.rawBuild.previousBuild.displayName
 					}
+					if (params.ENV_DEPLOY == "deploy-to-test") {
+					      releaseVersion = ARTIFACT_VERSION
+					}
+
 					echo 'Previous Build Display Name:' + prvBuildDispName
 					def nxtBuildNum = updateNextBuildNumber(prvBuildDispName, releaseVersion)
 					echo "Current build display name set to -> " + nxtBuildNum
