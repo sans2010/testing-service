@@ -15,7 +15,7 @@ pipeline {
 		def appGroupId = ''
 		def appArtifactId = ''
 		def devUrl = 'testing-bcbs-app.cfapps.io'
-		def testUrl = 'testing-bcbsTest-app.cfapps.io'
+		def testUrl = 'testing-bcbs-test-app.cfapps.io'
     }
 	parameters {
 		choice(choices:'deploy-to-dev\ndeploy-proxy-dev\ndeploy-kvm-dev\ndeploy-to-test',description:'Which Env',name:'ENV_DEPLOY')
@@ -163,9 +163,10 @@ pipeline {
 						bat "cf env "+ARTIFACT_ID+" > temp.txt"
 						//bat "${mvnHome}/bin/mvn clean package -P artifact-download -DgroupId="+GROUP_ID+" -DartifactId="+ARTIFACT_ID+" -Dversion="+ARTIFACT_VERSION+" "
 						bat "cf push "+ARTIFACT_ID+"-test --no-manifest set-env APP_VERSION "+appVersion+" -p target/"+ARTIFACT_ID+"-"+appVersion+".jar --no-start --no-route"
+						bat "cf set-env "+ARTIFACT_ID+"-test APP_VERSION "+appVersion+" "
 						bat "cf create-route bcbsma "+testUrl+" "
+						bat "cf start "+ARTIFACT_ID+"-test "
 						bat "cf map-route "+ARTIFACT_ID+"-test "+testUrl+" "
-						bat "cf restage "+ARTIFACT_ID+"-test "
 					}
 					//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID+"-test", appPath: 'target/'+ARTIFACT_ID+'-'+appVersion+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: appVersion]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
 				}
