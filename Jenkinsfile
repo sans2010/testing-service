@@ -15,7 +15,7 @@ pipeline {
 		def appGroupId = ''
 		def appArtifactId = ''
 		def devUrl = 'testing-bcbs-app.cfapps.io'
-		def testUrl = 'test-testing-bcbs-app.cfapps.io'
+		def testUrl = 'testing-bcbsTest-app.cfapps.io'
     }
 	parameters {
 		choice(choices:'deploy-to-dev\ndeploy-proxy-dev\ndeploy-kvm-dev\ndeploy-to-test',description:'Which Env',name:'ENV_DEPLOY')
