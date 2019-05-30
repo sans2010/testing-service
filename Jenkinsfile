@@ -149,7 +149,7 @@ pipeline {
         }
         stage ('Test Promotion') {
 		agent any
-		when { expression { params.DEPLOY_TO_TEST == 'Yes' || params.DEPLOY_TO_TEST == 'deploy-to-test' } }
+		when { expression { (params.ENV_DEPLOY == 'deploy-to-dev' && params.DEPLOY_TO_TEST == 'Yes') || params.ENV_DEPLOY == 'deploy-to-test' } }
             steps {
                 echo 'Deploying app...'
 				script {
