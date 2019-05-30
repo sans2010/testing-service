@@ -10,19 +10,12 @@ import java.io.IOException;
 
 pipeline {
     agent any
-	environment {
-		def appVersion = ''
-		def appGroupId = ''
-		def appArtifactId = ''
-		def devUrl = 'testing-bcbs-app.cfapps.io'
-		def testUrl = 'test-testing-bcbs-app.cfapps.io'
-    }
+	
 	parameters {
 		choice(choices:'deploy-to-dev\ndeploy-proxy-dev\ndeploy-kvm-dev\ndeploy-to-test',description:'Which Env',name:'ENV_DEPLOY')
-		choice(choices:'Yes\nNo',description:'Deploy to Test env?',name:'ENV_FLAG')
-		//string(name:'ARTIFACT_VERSION',defaultValue:'',description:'Enter Artifact version from Artifactory.')
-		//string(name:'ARTIFACT_ID',defaultValue:'',description:'Enter ARTIFACT ID (same as repo name) to build.')
-		//string(name:'GROUP_ID',defaultValue:'',description:'Enter GROUP ID to build.')
+		string(name:'ARTIFACT_VERSION',defaultValue:'',description:'Enter Artifact version from Artifactory.')
+		string(name:'ARTIFACT_ID',defaultValue:'',description:'Enter ARTIFACT ID (same as repo name) to build.')
+		string(name:'GROUP_ID',defaultValue:'',description:'Enter GROUP ID to build.')
 	}
 	
     stages {
@@ -45,10 +38,6 @@ pipeline {
 			        println "Version = " + model.getVersion()
 					//update next build number
 					//def releaseVersion = "test-1"
-					appVersion = model.getVersion()
-					appGroupId = model.getGroupId()
-					appArtifactId = model.getArtifactId()
-					
 					def releaseVersion = model.getVersion()
 					reader = null
 					model = null
@@ -149,7 +138,7 @@ pipeline {
         }
         stage ('Test Promotion') {
 		agent any
-		when { expression { params.ENV_FLAG == 'Yes' || params.ENV_DEPLOY == 'deploy-to-dev' } }
+		when { expression { params.ENV_DEPLOY == 'deploy-to-test' } }
             steps {
                 echo 'Deploying app...'
 				script {
@@ -161,10 +150,10 @@ pipeline {
 						def artifactory_server = Artifactory.server "Artifactory"
 						bat 'cf login -a https://api.run.pivotal.io -u '+SECREAT_PCF_USER+' -p '+SECREAT_PCF_PASSWORD+' -o "Northeast / Canada" -s "bcbsma"'
 						bat "cf env "+ARTIFACT_ID+" > temp.txt"
-						//bat "${mvnHome}/bin/mvn clean package -P artifact-download -DgroupId="+GROUP_ID+" -DartifactId="+ARTIFACT_ID+" -Dversion="+ARTIFACT_VERSION+" "
+						bat "${mvnHome}/bin/mvn clean package -P artifact-download -DgroupId="+GROUP_ID+" -DartifactId="+ARTIFACT_ID+" -Dversion="+ARTIFACT_VERSION+" "
 						//bat "cf push "+ARTIFACT_ID+" --no-manifest set-env APP_VERSION "+ARTIFACT_VERSION+" -p artifactdownload/"+ARTIFACT_ID+"-"+ARTIFACT_VERSION+".jar"
 					}
-					pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID, appPath: 'target/'+ARTIFACT_ID+'-'+ARTIFACT_VERSION+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: ARTIFACT_VERSION]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
+					//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID, appPath: 'artifactdownload/'+ARTIFACT_ID+'-'+ARTIFACT_VERSION+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: ARTIFACT_VERSION]], hostname: 'testing-bcbs-app.cfapps.io', instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
 				}
             }
             post {
@@ -172,10 +161,6 @@ pipeline {
 					//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'
 					script {
 						//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'
-						def reader = new BufferedReader(new InputStreamReader(new FileInputStream("$WORKSPACE/temp.txt"),"UTF-8"))
-						if(reader.find("APP_VERSION")) {
-							
-						}
 						bat "cf"
 					}
 			    }
