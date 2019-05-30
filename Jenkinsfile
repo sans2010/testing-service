@@ -149,7 +149,7 @@ pipeline {
         }
         stage ('Test Promotion') {
 		agent any
-		when { expression { params.DEPLOY_TO_TEST == 'Yes' || params.ENV_DEPLOY == 'deploy-to-dev' } }
+		when { expression { params.DEPLOY_TO_TEST == 'Yes' && params.ENV_DEPLOY == 'deploy-to-dev' } }
             steps {
                 echo 'Deploying app...'
 				script {
@@ -164,7 +164,7 @@ pipeline {
 						//bat "${mvnHome}/bin/mvn clean package -P artifact-download -DgroupId="+GROUP_ID+" -DartifactId="+ARTIFACT_ID+" -Dversion="+ARTIFACT_VERSION+" "
 						//bat "cf push "+ARTIFACT_ID+" --no-manifest set-env APP_VERSION "+ARTIFACT_VERSION+" -p artifactdownload/"+ARTIFACT_ID+"-"+ARTIFACT_VERSION+".jar"
 					}
-					pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID, appPath: 'target/'+ARTIFACT_ID+'-'+ARTIFACT_VERSION+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: ARTIFACT_VERSION]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
+					pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID+"-test", appPath: 'target/'+ARTIFACT_ID+'-'+appVersion+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: appVersion]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
 				}
             }
             post {
