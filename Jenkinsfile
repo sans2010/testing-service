@@ -167,6 +167,7 @@ pipeline {
 						//bat "cf create-route bcbsma "+testUrl+" "
 						bat "cf map-route "+ARTIFACT_ID+"-test cfapps.io --hostname "+ARTIFACT_ID+"-test "
 						bat "cf start "+ARTIFACT_ID+"-test "
+						println "ENV = " + System.getenv("APP_VERSION")
 						//bat "cf map-route "+ARTIFACT_ID+"-test "+testUrl+" "
 					}
 					//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID+"-test", appPath: 'target/'+ARTIFACT_ID+'-'+appVersion+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: appVersion]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
