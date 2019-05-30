@@ -162,9 +162,11 @@ pipeline {
 						bat 'cf login -a https://api.run.pivotal.io -u '+SECREAT_PCF_USER+' -p '+SECREAT_PCF_PASSWORD+' -o "Northeast / Canada" -s "bcbsma"'
 						bat "cf env "+ARTIFACT_ID+" > temp.txt"
 						//bat "${mvnHome}/bin/mvn clean package -P artifact-download -DgroupId="+GROUP_ID+" -DartifactId="+ARTIFACT_ID+" -Dversion="+ARTIFACT_VERSION+" "
-						//bat "cf push "+ARTIFACT_ID+" --no-manifest set-env APP_VERSION "+ARTIFACT_VERSION+" -p artifactdownload/"+ARTIFACT_ID+"-"+ARTIFACT_VERSION+".jar"
+						bat "cf push "+ARTIFACT_ID+" --no-manifest set-env APP_VERSION "+ARTIFACT_VERSION+" -p target/"+ARTIFACT_ID+"-"+appVersion+".jar --no-start --no-route"
+						bat "cf map-route "+ARTIFACT_ID+" "+testUrl+""
+						bat "cf restage "+ARTIFACT_ID+""
 					}
-					pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID+"-test", appPath: 'target/'+ARTIFACT_ID+'-'+appVersion+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: appVersion]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
+					//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID+"-test", appPath: 'target/'+ARTIFACT_ID+'-'+appVersion+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: appVersion]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'	
 				}
             }
             post {
