@@ -19,7 +19,7 @@ pipeline {
     }
 	parameters {
 		choice(choices:'deploy-to-dev\ndeploy-proxy-dev\ndeploy-kvm-dev\ndeploy-to-test',description:'Which Env',name:'ENV_DEPLOY')
-		choice(choices:'Yes\nNo',description:'Deploy to Test env?',name:'ENV_FLAG')
+		choice(choices:'Yes\nNo',description:'Deploy to Test env?',name:'DEPLOY_TO_TEST')
 		//string(name:'ARTIFACT_VERSION',defaultValue:'',description:'Enter Artifact version from Artifactory.')
 		string(name:'ARTIFACT_ID',defaultValue:'',description:'Enter ARTIFACT ID (same as repo name) to build.')
 		//string(name:'GROUP_ID',defaultValue:'',description:'Enter GROUP ID to build.')
@@ -149,7 +149,7 @@ pipeline {
         }
         stage ('Test Promotion') {
 		agent any
-		when { expression { params.ENV_FLAG == 'Yes' || params.ENV_DEPLOY == 'deploy-to-dev' } }
+		when { expression { params.DEPLOY_TO_TEST == 'Yes' || params.ENV_DEPLOY == 'deploy-to-dev' } }
             steps {
                 echo 'Deploying app...'
 				script {
