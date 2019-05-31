@@ -176,11 +176,11 @@ pipeline {
 					//	println "Found APP_VERSION"
 					//}
 					
-					//Scanner scanner = new Scanner(new File("$WORKSPACE/temp.txt"))  
-					//while (scanner.hasNextLine()) {  
-					//   String line = scanner.nextLine()
-					//   println "Found Line ================ " + line
-					//}	
+					Scanner scanner = new Scanner(new File("$WORKSPACE/temp.txt"))  
+					while (scanner.hasNextLine()) {  
+					   String line = scanner.nextLine()
+					   println "Found Line ================ " + line
+					}	
 				}
             }
             post {
