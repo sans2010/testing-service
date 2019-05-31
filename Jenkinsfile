@@ -172,18 +172,15 @@ pipeline {
 					}
 					//pushToCloudFoundry cloudSpace: 'bcbsma', credentialsId: 'pcf-cre', manifestChoice: [appName: ARTIFACT_ID+"-test", appPath: 'target/'+ARTIFACT_ID+'-'+appVersion+'.jar', buildpack: '', command: '', domain: '', envVars: [[key: 'APP_VERSION', value: appVersion]], hostname: testUrl, instances: '1', memory: '758', noRoute: 'false', stack: '', timeout: '60', value: 'jenkinsConfig'], organization: 'Northeast / Canada', target: 'https://api.run.pivotal.io'
 					def reader = new BufferedReader(new InputStreamReader(new FileInputStream("$WORKSPACE/temp.txt"),"UTF-8"))
-					//if(reader.contains("APP_VERSION")) {
-						//tmp = stream.filter(lines -> lines.contains(item)).foreach(System.out::println)
-						//println "ENV = " + 
-					//}	
-					try {
-						Stream<String> stream = Files.lines(Paths.get("$WORKSPACE/temp.txt"))
-			           tmp = stream.filter(lines -> lines.contains(item))
-			                       .foreach(System.out::println);
-			
-			        } catch (IOException e) {
-			            e.printStackTrace();
-			        }
+					if(reader.contains("APP_VERSION")) {
+						println "Found APP_VERSION"
+					}
+					
+					Scanner scanner = new Scanner(new File("$WORKSPACE/temp.txt"))  
+					while (scanner.hasNextLine()) {  
+					   String line = scanner.nextLine()
+					   println "Found Line ================ " + line
+					}	
 				}
             }
             post {
