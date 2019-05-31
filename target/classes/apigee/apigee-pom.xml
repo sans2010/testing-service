@@ -3,9 +3,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>bcbsma</groupId>
-    <artifactId>edgemicro_domain_resource_proxyname_version</artifactId>
+    <artifactId>edge_domain_resource_proxyname_version</artifactId>
     <version>v1</version>
-    <name>edgemicro_domain_resource_proxyname_version</name>
+    <name>edge_domain_resource_proxyname_version</name>
     <packaging>pom</packaging>
  <pluginRepositories>
         <pluginRepository>

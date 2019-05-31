@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<APIProxy revision="1" name="edgemicro_domain_resource_proxyname_version">
+<APIProxy revision="1" name="edge_domain_resource_proxyname_version">
     <Basepaths>/domain/resource/v1/apiname</Basepaths>
     <ConfigurationVersion majorVersion="4" minorVersion="0"/>
-    <CreatedAt>1557157594452</CreatedAt>
+    <CreatedAt>1557157109338</CreatedAt>
     <CreatedBy>sandesh.gawali@perficient.com</CreatedBy>
     <Description>Edge Proxy Skeleton API - V1</Description>
     <DisplayName>edge_domain_resource_proxyname_version</DisplayName>
-    <LastModifiedAt>1557157827488</LastModifiedAt>
+    <LastModifiedAt>1557157471778</LastModifiedAt>
     <LastModifiedBy>sandesh.gawali@perficient.com</LastModifiedBy>
-    <ManifestVersion>SHA-512:9721067879defa2fd4fd104ffeaa311086e68f00e968e57ef4c432c680e03edc79a260bb8ab8f75a522933c42536d6be64d4ce18cbb411dea93d40ec3d9907a2</ManifestVersion>
+    <ManifestVersion>SHA-512:68807c45a883d31c1e9f302e95c9fe3c407a3c8f809b017d52560743a92a6157ad0ff1f6471e2defe98833dfd3f5d3685f047074ed93f67109930a4141126fd7</ManifestVersion>
     <Policies>
         <Policy>FC_CORSHandler</Policy>
     </Policies>

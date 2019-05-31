@@ -13,6 +13,6 @@
     <Flows/>
     <HTTPTargetConnection>
         <Properties/>
-        <URL>http://mocktarget.apigee.net/json</URL>
+        <URL>https://bcbs-devops-demo.cfapps.io/students/Student1/courses</URL>
     </HTTPTargetConnection>
 </TargetEndpoint>

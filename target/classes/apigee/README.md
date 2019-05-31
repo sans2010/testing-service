@@ -1,2 +1,2 @@
-# micro-proxy-skeleton
+# edge-proxy-skeleton
 

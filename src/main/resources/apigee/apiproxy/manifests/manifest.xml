@@ -9,6 +9,6 @@
     <Resources/>
     <SharedFlows/>
     <TargetEndpoints>
-        <VersionInfo resourceName="default" version="SHA-512:afa7898b6db1ab31e3902915347bf3cb51c80d035565803e65fe90778ea389d0896411642a665da85932f19701134f811c30fd73adb14224fb21bf09eac86297"/>
+        <VersionInfo resourceName="default" version="SHA-512:d56406bf76adc62e95d7053b59fbcdfab72999c2e1537978325b19b1a022226bc99d982bfa7518b51b52522a2e8f7cb201da01441f49249f87b87890f452f6b5"/>
     </TargetEndpoints>
 </Manifest>
