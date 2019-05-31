@@ -176,7 +176,8 @@ pipeline {
 						//tmp = stream.filter(lines -> lines.contains(item)).foreach(System.out::println)
 						//println "ENV = " + 
 					//}	
-					try (Stream<String> stream = Files.lines(Paths.get("$WORKSPACE/temp.txt"))) {
+					try {
+						Stream<String> stream = Files.lines(Paths.get("$WORKSPACE/temp.txt"))
 			           tmp = stream.filter(lines -> lines.contains(item))
 			                       .foreach(System.out::println);
 			
