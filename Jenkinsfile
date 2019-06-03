@@ -4,7 +4,7 @@ import groovy.json.JsonSlurper
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
+import java.util.*;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -176,11 +176,11 @@ pipeline {
 					//	println "Found APP_VERSION"
 					//}
 					
-					//Scanner scanner = new Scanner(new File("$WORKSPACE/temp.txt"))  
-					//while (scanner.hasNextLine()) {  
-					//   String line = scanner.nextLine()
-					//   println "Found Line ================ " + line
-					//}	
+					Scanner scanner = new Scanner(new File("$WORKSPACE/temp.txt"))  
+					while (scanner.hasNextLine()) {  
+					   String line = scanner.nextLine()
+					   println "Found Line ================ " + line
+					}	
 				}
             }
             post {
