@@ -148,6 +148,9 @@ pipeline {
             }
         }
         stage ('Test Promotion') {
+        input{
+		    message "Do you want to proceed for test deployment?"
+		}
 		agent any
 		when { expression { (params.ENV_DEPLOY == 'deploy-to-dev' && params.DEPLOY_TO_TEST == 'YES') || params.ENV_DEPLOY == 'deploy-to-test' } }
             steps {
@@ -181,7 +184,7 @@ pipeline {
 					   String line = scanner.nextLine()
 					   if(line.contains("APP_VERSION")) {
 					   		//String version = line.lastIndexOf("APP_VERSION:")
-					   		String lastWord = testString.split("\\s+");//line.replaceAll("^.*?(\\w+)\\W*$", "$1")
+					   		String lastWord = line.split("\\s+");//line.replaceAll("^.*?(\\w+)\\W*$", "$1")
 					   }
 					   println "Found Line ================ " + lastWord
 					}	
