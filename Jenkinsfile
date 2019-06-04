@@ -181,7 +181,7 @@ pipeline {
 					   String line = scanner.nextLine()
 					   if(line.contains("APP_VERSION")) {
 					   		//String version = line.lastIndexOf("APP_VERSION:")
-					   		String lastWord = line.replaceAll("^.*?(\\w+)\\W*$", "$1")
+					   		String lastWord = testString.split("\\s+");//line.replaceAll("^.*?(\\w+)\\W*$", "$1")
 					   }
 					   println "Found Line ================ " + lastWord
 					}	
