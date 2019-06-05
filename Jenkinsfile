@@ -16,6 +16,7 @@ pipeline {
 		def appArtifactId = ''
 		def devUrl = 'testing-bcbs-app.cfapps.io'
 		def testUrl = 'testing-bcbs-test-app.cfapps.io'
+		def resolvedVer = ''
     }
 	parameters {
 		choice(choices:'deploy-to-dev\ndeploy-proxy-dev\ndeploy-kvm-dev\ndeploy-to-test',description:'Which Env',name:'ENV_DEPLOY')
@@ -183,8 +184,8 @@ pipeline {
 					while (scanner.hasNextLine()) {  
 					   String line = scanner.nextLine()
 					   if(line.contains("APP_VERSION")) {
-					   		//String version = line.lastIndexOf("APP_VERSION:")
-					   		String lastWord = line.replaceAll('^.*?(\\w+)\\W*$', '$1')
+					   		//String lastWord = line.replaceAll('^.*?(\\w+)\\W*$', '$1')
+					   		String lastWord = line.substring(test.lastIndexOf(" ")+1);
 					   		println "Found Line ================ " + lastWord
 					   }
 					   
